@@ -1,130 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Swipe Your Destiny 💖</title>
-
-<style>
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: linear-gradient(135deg, #ff758c, #ff7eb3);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .app {
-    background: #fff;
-    width: 100%;
-    max-width: 420px;
-    padding: 20px;
-    border-radius: 24px;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.25);
-    text-align: center;
-  }
-
-  h1 {
-    margin: 5px 0 10px;
-  }
-
-  .card {
-    background: #fff0f6;
-    border-radius: 20px;
-    padding: 20px;
-    transition: transform 0.5s ease, opacity 0.5s ease;
-  }
-
-  .avatar {
-    font-size: 70px;
-    margin-bottom: 10px;
-  }
-
-  .name {
-    font-size: 22px;
-    font-weight: 700;
-  }
-
-  .age {
-    opacity: 0.7;
-  }
-
-  .bio {
-    margin: 12px 0;
-    line-height: 1.4;
-  }
-
-  .details {
-    font-size: 14px;
-    text-align: left;
-    margin-top: 10px;
-  }
-
-  .pickup {
-    font-style: italic;
-    margin-top: 10px;
-    color: #c2185b;
-  }
-
-  .buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-  }
-
-  button {
-    width: 48%;
-    padding: 12px;
-    font-size: 18px;
-    border-radius: 30px;
-    border: none;
-    cursor: pointer;
-  }
-
-  .left { background: #eee; }
-  .right { background: #ff4d6d; color: white; }
-
-  #message {
-    margin-top: 15px;
-    min-height: 50px;
-    font-size: 15px;
-  }
-
-  .hidden {
-    display: none;
-  }
-</style>
-</head>
-
-<body>
-
-<div class="app">
-  <h1>💖 Valentine Swipe</h1>
-
-  <div id="card" class="card">
-    <div id="avatar" class="avatar"></div>
-    <div id="name" class="name"></div>
-    <div id="age" class="age"></div>
-    <p id="bio" class="bio"></p>
-
-    <div class="details">
-      <p><strong>Job:</strong> <span id="job"></span></p>
-      <p><strong>Interests:</strong> <span id="interests"></span></p>
-      <p id="pickup" class="pickup"></p>
-    </div>
-  </div>
-
-  <div class="buttons">
-    <button class="left" id="left">❌ Swipe Left</button>
-    <button class="right" id="right">❤️ Swipe Right</button>
-  </div>
-
-  <div id="message"></div>
-</div>
-
 <script>
 const profiles = [
   {
@@ -189,12 +62,32 @@ const profiles = [
   }
 ];
 
-const funnyErrors = [
-  "❌ Match failed. You deserve better.",
-  "Server says: nahhh 😌",
-  "This one is not main-character energy.",
-  "Error 404: Butterflies not found.",
-  "System blocked. Your heart knows why."
+const rightSwipeErrors = [
+  "🚫 ACCESS DENIED 😤 This man is NOT your destiny.",
+  "💀 System crash! Your heart rejected this choice.",
+  "😭 NOOOO. Even Cupid closed his eyes.",
+  "🤡 Error 520: This guy thinks he’s the main character.",
+  "🙅‍♀️ Universe says: absolutely not.",
+  "🚨 WARNING: Boring energy detected.",
+  "😬 Butterflies refused to fly."
+];
+
+const leftSwipeMeErrors = [
+  "😡 EXCUSE ME??? Swipe LEFT???",
+  "🥺 My heart just tripped and fell.",
+  "🔥 Bold of you to try rejecting destiny.",
+  "😤 This option was never real.",
+  "😭 I trusted you…",
+  "🤨 Are you testing me on purpose?",
+  "💔 My software just crashed.",
+  "🫠 I’m pretending I didn’t see that.",
+  "😠 Swipe left again and I’ll cry fr.",
+  "😑 Nice joke. Try again.",
+  "😩 I literally wore sunglasses for you.",
+  "🧨 Emotional damage detected.",
+  "😳 Be serious right now.",
+  "😤 This is illegal behaviour.",
+  "🥹 Don’t play with my feelings like this."
 ];
 
 let index = 0;
@@ -213,6 +106,24 @@ function renderProfile() {
   el("message").textContent = "";
 }
 
+function launchConfetti() {
+  const emojis = ["❤️","💖","💘","💕","💞"];
+  const interval = setInterval(() => {
+    const heart = document.createElement("div");
+    heart.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    heart.style.position = "fixed";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.top = "-20px";
+    heart.style.fontSize = "24px";
+    heart.style.animation = "fall 3s linear";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 3000);
+  }, 150);
+
+  setTimeout(() => clearInterval(interval), 3000);
+}
+
 function swipe(dir) {
   const p = profiles[index];
   const card = el("card");
@@ -226,26 +137,43 @@ function swipe(dir) {
 
     if (p.isYou) {
       if (dir === "left") {
-        el("message").innerHTML = "😤 Nope. This option has been disabled permanently.";
+        el("message").textContent =
+          leftSwipeMeErrors[Math.floor(Math.random() * leftSwipeMeErrors.length)];
+        return;
       } else {
-        el("message").innerHTML = `
-          💍 <strong>You chose me.</strong><br><br>
-          I promise to be honest, loving, gentle, protective, hilarious, and yours.<br><br>
-          Let’s go on movie dates 🍿<br>
-          Late-night walks 🌙<br>
-          Endless cuddles 🤍<br><br>
-          I love you more than words can hold.
-        `;
+        launchConfetti();
+
+        setTimeout(() => {
+          document.body.innerHTML = `
+            <div style="
+              display:flex;
+              justify-content:center;
+              align-items:center;
+              height:100vh;
+              background:linear-gradient(135deg,#ff758c,#ff7eb3);
+              color:white;
+              text-align:center;
+              font-family:-apple-system, BlinkMacSystemFont, sans-serif;
+              padding:20px;
+            ">
+              <div>
+                <h1 style="font-size:40px;">💖 HAPPY PROMISE DAY 💖</h1>
+                <h2 style="margin-top:10px;">meri sanu 💍❤️</h2>
+              </div>
+            </div>
+          `;
+        }, 3000);
+        return;
       }
-      return;
     }
 
     if (dir === "right") {
-      el("message").textContent = funnyErrors[Math.floor(Math.random()*funnyErrors.length)];
+      el("message").textContent =
+        rightSwipeErrors[Math.floor(Math.random() * rightSwipeErrors.length)];
+    } else {
+      index++;
+      if (index < profiles.length) renderProfile();
     }
-
-    index++;
-    if (index < profiles.length) renderProfile();
   }, 500);
 }
 
@@ -255,5 +183,8 @@ el("right").onclick = () => swipe("right");
 renderProfile();
 </script>
 
-</body>
-</html>
+<style>
+@keyframes fall {
+  to { transform: translateY(110vh); opacity: 0; }
+}
+</style>
