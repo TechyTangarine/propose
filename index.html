@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Propose Day 💍</title>
+
+  <style>
+    :root {
+      --bg-dark: #0f0b12;
+      --bg-mid: #1a1220;
+      --accent: #ffd6e5;
+      --soft: #e6b8c7;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Georgia", serif;
+      background: linear-gradient(to bottom, var(--bg-dark), var(--bg-mid));
+      color: var(--soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: env(safe-area-inset-top) 16px env(safe-area-inset-bottom);
+      text-align: center;
+    }
+
+    main {
+      max-width: 430px;
+      width: 100%;
+    }
+
+    h1 {
+      color: var(--accent);
+      font-size: 2.1rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 4px 18px rgba(255,214,229,0.35);
+      animation: fadeUp 1s ease forwards;
+    }
+
+    p {
+      line-height: 1.6;
+      opacity: 0.9;
+      animation: fadeUp 1.4s ease forwards;
+    }
+
+    .card {
+      margin-top: 2rem;
+      background: rgba(255,255,255,0.04);
+      border-radius: 20px;
+      padding: 28px 22px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+      animation: fadeScale 0.8s ease forwards;
+    }
+
+    .buttons {
+      margin-top: 1.8rem;
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    button {
+      flex: 1;
+      padding: 14px 0;
+      border-radius: 30px;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    button:active {
+      transform: scale(0.94);
+    }
+
+    .yes {
+      background: var(--accent);
+      color: #2a141b;
+      font-weight: bold;
+    }
+
+    .no {
+      background: transparent;
+      color: var(--soft);
+      border: 1px solid rgba(255,214,229,0.4);
+    }
+
+    .proposal {
+      margin-top: 1.6rem;
+      font-size: 0.95rem;
+      font-style: italic;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards;
+      animation-delay: 0.3s;
+      animation-fill-mode: forwards;
+    }
+
+    .ring {
+      font-size: 2.5rem;
+      margin-top: 1rem;
+      opacity: 0;
+      animation: pop 0.8s ease forwards;
+      animation-delay: 0.6s;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeScale {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes pop {
+      0% { opacity: 0; transform: scale(0.5); }
+      60% { opacity: 1; transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+
+<body>
+<main>
+
+  <h1>Propose Day 💍</h1>
+
+  <p>
+    If I met you again in another life,<br>
+    another city, another time…
+  </p>
+
+  <div class="card" id="card">
+    <p>
+      knowing everything I know now,<br>
+      feeling everything I already feel —
+      <br><br>
+      would you still choose me?
+    </p>
+
+    <div class="buttons">
+      <button class="no" id="noBtn">Hmm…</button>
+      <button class="yes" id="yesBtn">Yes ❤️</button>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  const card = document.getElementById("card");
+  const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
+
+  const haptic = (ms = 20) => {
+    if (navigator.vibrate) navigator.vibrate(ms);
+  };
+
+  noBtn.addEventListener("click", () => {
+    haptic();
+    noBtn.textContent = "You can’t escape me 😏";
+  });
+
+  yesBtn.addEventListener("click", () => {
+    haptic(40);
+    card.innerHTML = `
+      <p>
+        Then let me say this properly…
+      </p>
+
+      <div class="ring">💍</div>
+
+      <div class="proposal">
+        I don’t promise perfection.<br>
+        I promise honesty, effort, laughter,<br>
+        and love that keeps choosing you.<br><br>
+
+        Not just today.<br>
+        Not just in words.<br><br>
+
+        But in every tomorrow that follows. ❤️
+      </div>
+    `;
+  });
+</script>
+
+</body>
+</html>
