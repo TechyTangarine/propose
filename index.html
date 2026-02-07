@@ -2,251 +2,257 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Propose Day 💍</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Swipe Your Destiny 💖</title>
 
 <style>
-:root {
-  --bg: #0f0b12;
-  --card: #1b121f;
-  --accent: #ffd6e5;
-  --muted: #e6b8c7;
-}
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  .app {
+    background: #fff;
+    width: 100%;
+    max-width: 420px;
+    padding: 20px;
+    border-radius: 24px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+    text-align: center;
+  }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: linear-gradient(to bottom, #0f0b12, #1a1220);
-  font-family: Georgia, serif;
-  color: var(--muted);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: env(safe-area-inset-top) 16px env(safe-area-inset-bottom);
-}
+  h1 {
+    margin: 5px 0 10px;
+  }
 
-main {
-  width: 100%;
-  max-width: 430px;
-  text-align: center;
-}
+  .card {
+    background: #fff0f6;
+    border-radius: 20px;
+    padding: 20px;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
 
-h1 {
-  color: var(--accent);
-  margin-bottom: 12px;
-  text-shadow: 0 4px 18px rgba(255,214,229,0.35);
-}
+  .avatar {
+    font-size: 70px;
+    margin-bottom: 10px;
+  }
 
-.card-stack {
-  position: relative;
-  height: 420px;
-  margin-top: 20px;
-}
+  .name {
+    font-size: 22px;
+    font-weight: 700;
+  }
 
-.card {
-  position: absolute;
-  inset: 0;
-  background: var(--card);
-  border-radius: 24px;
-  padding: 22px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: transform 0.5s ease, opacity 0.5s ease;
-}
+  .age {
+    opacity: 0.7;
+  }
 
-.card.hidden { opacity: 0; pointer-events: none; }
+  .bio {
+    margin: 12px 0;
+    line-height: 1.4;
+  }
 
-.avatar {
-  font-size: 4rem;
-}
+  .details {
+    font-size: 14px;
+    text-align: left;
+    margin-top: 10px;
+  }
 
-.name {
-  font-size: 1.2rem;
-  color: var(--accent);
-}
+  .pickup {
+    font-style: italic;
+    margin-top: 10px;
+    color: #c2185b;
+  }
 
-.bio {
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
 
-.meta {
-  font-size: 0.85rem;
-  opacity: 0.85;
-}
+  button {
+    width: 48%;
+    padding: 12px;
+    font-size: 18px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+  }
 
-.buttons {
-  display: flex;
-  gap: 16px;
-  margin-top: 20px;
-}
+  .left { background: #eee; }
+  .right { background: #ff4d6d; color: white; }
 
-button {
-  flex: 1;
-  padding: 14px;
-  border-radius: 30px;
-  border: none;
-  font-size: 1rem;
-  font-family: inherit;
-  cursor: pointer;
-}
+  #message {
+    margin-top: 15px;
+    min-height: 50px;
+    font-size: 15px;
+  }
 
-.left { background: transparent; color: var(--muted); border: 1px solid rgba(255,214,229,0.4); }
-.right { background: var(--accent); color: #2a141b; font-weight: bold; }
-
-.message {
-  margin-top: 18px;
-  min-height: 48px;
-  font-size: 0.9rem;
-  opacity: 0.9;
-}
-
-.proposal {
-  animation: fadeUp 1s ease forwards;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+  .hidden {
+    display: none;
+  }
 </style>
 </head>
 
 <body>
-<main>
 
-<h1>Propose Day 💍</h1>
-<p>Swipe wisely 😏</p>
+<div class="app">
+  <h1>💖 Valentine Swipe</h1>
 
-<div class="card-stack" id="stack"></div>
+  <div id="card" class="card">
+    <div id="avatar" class="avatar"></div>
+    <div id="name" class="name"></div>
+    <div id="age" class="age"></div>
+    <p id="bio" class="bio"></p>
 
-<div class="buttons">
-  <button class="left" id="leftBtn">Swipe Left</button>
-  <button class="right" id="rightBtn">Swipe Right</button>
+    <div class="details">
+      <p><strong>Job:</strong> <span id="job"></span></p>
+      <p><strong>Interests:</strong> <span id="interests"></span></p>
+      <p id="pickup" class="pickup"></p>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button class="left" id="left">❌ Swipe Left</button>
+    <button class="right" id="right">❤️ Swipe Right</button>
+  </div>
+
+  <div id="message"></div>
 </div>
-
-<div class="message" id="message"></div>
-
-</main>
 
 <script>
 const profiles = [
   {
-    name: "Random Guy",
     avatar: "🧔",
+    name: "Rohit Sharma",
+    age: 26,
     bio: "Gym. Protein. Ego.",
-    meta: "Works at: Red Flag Inc.",
-    type: "other"
+    job: "Fitness Influencer",
+    interests: "Mirrors",
+    pickup: "Are you a dumbbell? Because I can lift you.",
+    isYou: false
   },
   {
-    name: "Mystery Boy",
+    avatar: "🧑‍💼",
+    name: "Aman Verma",
+    age: 28,
+    bio: "Crypto trader. Trust me bro.",
+    job: "Investor",
+    interests: "Red flags",
+    pickup: "I lost money today but maybe I can win your heart?",
+    isYou: false
+  },
+  {
+    avatar: "🧑‍🎤",
+    name: "Kunal Beats",
+    age: 24,
+    bio: "SoundCloud rapper since 2016.",
+    job: "Musician",
+    interests: "Auto-tune",
+    pickup: "You + me = viral reel?",
+    isYou: false
+  },
+  {
+    avatar: "🧑‍🚀",
+    name: "Neil Spacey",
+    age: 30,
+    bio: "Emotionally unavailable.",
+    job: "Aerospace Engineer",
+    interests: "Mars",
+    pickup: "I need space… but maybe with you.",
+    isYou: false
+  },
+  {
+    avatar: "🧑‍🍳",
+    name: "Chef Rahul",
+    age: 27,
+    bio: "Can cook, can’t commit.",
+    job: "Sous Chef",
+    interests: "Spices",
+    pickup: "I’ll spice up your life for a week.",
+    isYou: false
+  },
+  {
     avatar: "😎",
-    bio: "I ghost professionally.",
-    meta: "Interest: Himself",
-    type: "other"
-  },
-  {
-    name: "Overconfident Dude",
-    avatar: "🕶️",
-    bio: "I am the prize. Trust me bro.",
-    meta: "Emotionally unavailable",
-    type: "other"
-  },
-  {
-    name: "Swikar Acharya, 23",
-    avatar: "😎",
-    bio: `Hi cutiee 😘😘😘  
-I have a history of mystery.  
-Swipe right if you'd like to discover my mysteries 😘😘😘  
-Aaja tujhe heaven dekhaungaaaa.`,
-    meta: "Software Engineer at Verisk | Interests: YOU",
-    type: "me"
+    name: "Swikar Acharya",
+    age: 23,
+    bio: "Hi cutiee 😘😘😘 I have a history of mystery. Swipe right if you'd like to discover my mysteries.",
+    job: "Software Engineer at Verisk",
+    interests: "YOU",
+    pickup: "Aaja tujhe heaven dekhaungaaaa 😘",
+    isYou: true
   }
 ];
 
-const errorPool = [
-  "Error 404: Taste not found 😌",
-  "Server busy. Please choose better options.",
-  "Swipe rejected by common sense 😏",
-  "Nice try, but no.",
-  "System detected bad decision 🚫"
-];
-
-const leftBlockPool = [
-  "Excuse me?? Try again 😌",
-  "Swipe left disabled for this profile.",
-  "Nah. You’re not allowed to do that.",
-  "Nice joke. Now swipe right.",
-  "Universe says NOPE."
+const funnyErrors = [
+  "❌ Match failed. You deserve better.",
+  "Server says: nahhh 😌",
+  "This one is not main-character energy.",
+  "Error 404: Butterflies not found.",
+  "System blocked. Your heart knows why."
 ];
 
 let index = 0;
-const stack = document.getElementById("stack");
-const message = document.getElementById("message");
 
-function renderCard() {
-  stack.innerHTML = "";
+const el = id => document.getElementById(id);
+
+function renderProfile() {
   const p = profiles[index];
-  const card = document.createElement("div");
-  card.className = "card";
-  card.innerHTML = `
-    <div>
-      <div class="avatar">${p.avatar}</div>
-      <div class="name">${p.name}</div>
-      <div class="bio">${p.bio.replace(/\n/g,"<br>")}</div>
-    </div>
-    <div class="meta">${p.meta}</div>
-  `;
-  stack.appendChild(card);
+  el("avatar").textContent = p.avatar;
+  el("name").textContent = p.name;
+  el("age").textContent = p.age + " years";
+  el("bio").textContent = p.bio;
+  el("job").textContent = p.job;
+  el("interests").textContent = p.interests;
+  el("pickup").textContent = p.pickup;
+  el("message").textContent = "";
 }
 
-renderCard();
-
-document.getElementById("rightBtn").onclick = () => {
+function swipe(dir) {
   const p = profiles[index];
-  if (p.type === "other") {
-    message.textContent = errorPool[Math.floor(Math.random()*errorPool.length)];
+  const card = el("card");
+
+  card.style.transform = `translateX(${dir === "right" ? "120%" : "-120%"}) rotate(${dir === "right" ? 15 : -15}deg)`;
+  card.style.opacity = 0;
+
+  setTimeout(() => {
+    card.style.transform = "none";
+    card.style.opacity = 1;
+
+    if (p.isYou) {
+      if (dir === "left") {
+        el("message").innerHTML = "😤 Nope. This option has been disabled permanently.";
+      } else {
+        el("message").innerHTML = `
+          💍 <strong>You chose me.</strong><br><br>
+          I promise to be honest, loving, gentle, protective, hilarious, and yours.<br><br>
+          Let’s go on movie dates 🍿<br>
+          Late-night walks 🌙<br>
+          Endless cuddles 🤍<br><br>
+          I love you more than words can hold.
+        `;
+      }
+      return;
+    }
+
+    if (dir === "right") {
+      el("message").textContent = funnyErrors[Math.floor(Math.random()*funnyErrors.length)];
+    }
+
     index++;
-    if (index < profiles.length) setTimeout(renderCard, 600);
-  } else {
-    showProposal();
-  }
-};
-
-document.getElementById("leftBtn").onclick = () => {
-  const p = profiles[index];
-  if (p.type === "me") {
-    message.textContent = leftBlockPool[Math.floor(Math.random()*leftBlockPool.length)];
-  } else {
-    index++;
-    if (index < profiles.length) renderCard();
-  }
-};
-
-function showProposal() {
-  stack.innerHTML = `
-    <div class="proposal">
-      <h2>So here’s the truth ❤️</h2>
-      <p>
-        I promise to be honest.<br>
-        To love you gently and fiercely.<br>
-        To be your safe place, your laughter,<br>
-        your partner in chaos and calm.<br><br>
-
-        I choose you — again and again.<br>
-        Movie dates, late nights, silly jokes,<br>
-        holding hands and holding hearts.<br><br>
-
-        Will you stay with me and let me love you the most? 💍
-      </p>
-    </div>
-  `;
-  message.textContent = "";
+    if (index < profiles.length) renderProfile();
+  }, 500);
 }
+
+el("left").onclick = () => swipe("left");
+el("right").onclick = () => swipe("right");
+
+renderProfile();
 </script>
 
 </body>
