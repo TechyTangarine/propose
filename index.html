@@ -272,6 +272,35 @@ function launchFinalConfetti() {
   setTimeout(() => clearInterval(interval), 3500);
 }
 
+function showFinalTypingScreen() {
+  document.body.innerHTML = `
+    <div id="finalScreen" style="
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      background:#ffb6c1;
+      font-family:-apple-system, BlinkMacSystemFont, sans-serif;
+    ">
+      <h1 id="typingText" style="
+        font-size:36px;
+        color:#8b0033;
+        letter-spacing:1px;
+      "></h1>
+    </div>
+  `;
+
+  const text = "I love you my baby";
+  const target = document.getElementById("typingText");
+  let i = 0;
+
+  const typing = setInterval(() => {
+    target.textContent += text[i];
+    i++;
+    if (i >= text.length) clearInterval(typing);
+  }, 120);
+}
+
 
 function swipe(dir) {
   const p = profiles[index];
@@ -345,10 +374,16 @@ function swipe(dir) {
 		  };
 
 		  document.getElementById("yesBtn").onclick = () => {
-			launchFinalConfetti();
-			document.getElementById("promiseMessage").innerHTML =
-			  "💖 You are mine. I am yours. In this life and every universe. 🌹✨";
-		  };
+			  launchFinalConfetti();
+
+			  const msg = document.getElementById("promiseMessage");
+			  msg.innerHTML =
+				"💖 You are mine. I am yours. In this life and every universe. 🌹✨";
+
+			  // after 4 seconds, wipe everything and show final typing screen
+			  setTimeout(showFinalTypingScreen, 4000);
+			};
+
 		}, 3000);
 		
         return;
@@ -364,6 +399,8 @@ function swipe(dir) {
     }
   }, 500);
 }
+
+
 
 el("left").onclick = () => swipe("left");
 el("right").onclick = () => swipe("right");
