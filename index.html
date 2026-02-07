@@ -251,6 +251,26 @@ function launchConfetti() {
   setTimeout(() => clearInterval(interval), 3000);
 }
 
+function launchFinalConfetti() {
+  const emojis = ["❤️","💖","💘","💕","💞","🌹","✨","🌸"];
+  const interval = setInterval(() => {
+    for (let i = 0; i < 3; i++) {
+      const e = document.createElement("div");
+      e.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      e.style.position = "fixed";
+      e.style.left = Math.random() * 100 + "vw";
+      e.style.top = "-20px";
+      e.style.fontSize = "26px";
+      e.style.animation = "fall 3.5s linear";
+      document.body.appendChild(e);
+      setTimeout(() => e.remove(), 3500);
+    }
+  }, 200);
+
+  setTimeout(() => clearInterval(interval), 3500);
+}
+
+
 function swipe(dir) {
   const p = profiles[index];
   const card = el("card");
@@ -269,27 +289,66 @@ function swipe(dir) {
         return;
       } else {
         launchConfetti();
+		setTimeout(() => {
+		  document.body.innerHTML = `
+			<div id="promiseScreen" style="
+			  display:flex;
+			  justify-content:center;
+			  align-items:center;
+			  height:100vh;
+			  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+			  color:white;
+			  text-align:center;
+			  font-family:-apple-system, BlinkMacSystemFont, sans-serif;
+			  padding:20px;
+			">
+			  <div>
+				<h1 style="font-size:40px;">💖 HAPPY PROPOSE DAY 💖</h1>
+				<h2 style="margin-bottom:30px;">मेरी सानु💍❤️</h2>
 
-        setTimeout(() => {
-          document.body.innerHTML = `
-            <div style="
-              display:flex;
-              justify-content:center;
-              align-items:center;
-              height:100vh;
-              background:linear-gradient(135deg,#ff758c,#ff7eb3);
-              color:white;
-              text-align:center;
-              font-family:-apple-system, BlinkMacSystemFont, sans-serif;
-              padding:20px;
-            ">
-              <div>
-                <h1 style="font-size:40px;">💖 HAPPY PROMISE DAY 💖</h1>
-                <h2 style="margin-top:10px;">meri sanu 💍❤️</h2>
-              </div>
-            </div>
-          `;
-        }, 3000);
+				<p style="font-size:18px; line-height:1.5; margin-bottom:25px;">
+				  Will you be mine and only mine forever and ever,<br/>
+				  and will you make me yours? 🥺❤️
+				</p>
+
+				<div style="display:flex; gap:20px; justify-content:center;">
+				  <button id="yesBtn" style="
+					padding:12px 30px;
+					font-size:18px;
+					border-radius:30px;
+					border:none;
+					background:#ff4d6d;
+					color:white;
+					cursor:pointer;
+				  ">YES ❤️</button>
+
+				  <button id="noBtn" style="
+					padding:12px 30px;
+					font-size:18px;
+					border-radius:30px;
+					border:none;
+					background:#ffffffaa;
+					cursor:pointer;
+				  ">❌</button>
+				</div>
+
+				<p id="promiseMessage" style="margin-top:20px; min-height:40px;"></p>
+			  </div>
+			</div>
+		  `;
+
+		  document.getElementById("noBtn").onclick = () => {
+			document.getElementById("promiseMessage").textContent =
+			  leftSwipeMeErrors[Math.floor(Math.random() * leftSwipeMeErrors.length)];
+		  };
+
+		  document.getElementById("yesBtn").onclick = () => {
+			launchFinalConfetti();
+			document.getElementById("promiseMessage").innerHTML =
+			  "💖 You are mine. I am yours. In this life and every universe. 🌹✨";
+		  };
+		}, 3000);
+		
         return;
       }
     }
